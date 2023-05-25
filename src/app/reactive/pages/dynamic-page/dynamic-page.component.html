@@ -1,0 +1,212 @@
+<h2>Reactivos: <small> Dinámicos </small></h2>
+<hr>
+
+<form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+    <!-- Nombre -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Nombre</label>
+        <div class="col-sm-9">
+            <input class="form-control"
+                   formControlName="name"
+                   placeholder="Nombre de la persona">
+            <span *ngIf="isValidField('name')" class="form-text text-danger">
+                   {{ getFieldError('name') }}
+            </span>
+        </div>
+    </div>
+
+    <!-- Agregar Favorito -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Agregar</label>
+        <div class="col-sm-9">
+
+            <div class="input-group">
+                <input class="form-control"
+                       [formControl]="newFavorite"
+                       placeholder="Agregar favorito">
+
+
+                <button class="btn btn-outline-primary"
+                        type="button"
+                        (click)="onAddToFavorites()">
+                    Agregar favorito
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Lista de Juegos Favoritos -->
+    <div class="mb-3 row">
+        <label class="col-sm-3 col-form-label">Favoritos</label>
+        <div class="col-sm-9"  formArrayName="favoriteGames">
+
+            <div class="mb-1" *ngFor="let favorite of favoriteGames.controls, let i = index">
+
+                <div class="input-group">
+                    <input class="form-control" [formControlName]="i">
+
+                    <button class="btn btn-outline-danger"
+                            type="button"
+                            (click)="onDeleteFavorite(i)">
+                      Eliminar
+                  </button>
+                </div>
+
+                <span *ngIf="isValidFieldInArray(favoriteGames, i)" class="form-text text-danger">
+                  Este campo es requerido
+                </span>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <button type="submit"
+                    class="btn btn-primary float-end"
+                    >
+                    <!-- [disabled]="myForm.invalid" -->
+                Guardar
+            </button>
+        </div>
+    </div>
+
+
+</form>
+
+<span>Valid</span>
+<pre>{{ myForm.valid | json }}</pre>
+<br>
+
+<span>Value</span>
+<pre>{{ myForm.value  | json }}</pre>
+<br>
+
+<span>Agregar Juego</span>
+<pre>{{ newFavorite.valid | json }}</pre>
+<pre>{{ newFavorite.value | json }}</pre>
+
+<!-- <span>Valid</span>
+<pre>{{ myForm.valid| json }}</pre>
+
+<span>Pristine</span>
+<pre>{{ myForm.pristine| json }}</pre>
+
+<span>Touched</span>
+<pre>{{ myForm.touched| json }}</pre>
+
+<span>Value</span>
+<pre>{{ myForm.value| json }}</pre>
+
+<span>Precio value</span>
+<pre>{{ myForm.controls['price'].value| json }}</pre>
+
+<span>Precio errors</span>
+<pre>{{ myForm.controls['price'].errors| json }}</pre>
+
+<span>Producto value</span>
+<pre>{{ myForm.controls['name'].value| json }}</pre>
+
+<span>Producto errors</span>
+<pre>{{ myForm.controls['name'].errors| json }}</pre> -->
+
+<hr>
+<h3>Practica</h3>
+<hr>
+
+<form autocomplete="off" [formGroup]="practicaForm" (ngSubmit)="onGuardar()">
+
+  <!-- Nombre -->
+  <div class="mb-3 row">
+      <label class="col-sm-3 col-form-label">Nombre</label>
+      <div class="col-sm-9">
+          <input  class="form-control"
+                  formControlName="nombre"
+                  placeholder="Nombre de la persona">
+          <span *ngIf="esValidoElCampo('nombre')" class="form-text text-danger">
+                 {{ obtenerErrorCampo('nombre') }}
+          </span>
+      </div>
+  </div>
+
+  <!-- Agregar Favorito -->
+  <div class="mb-3 row">
+      <label class="col-sm-3 col-form-label">Agregar</label>
+      <div class="col-sm-9">
+
+          <div class="input-group">
+              <input class="form-control"
+
+                     placeholder="Agregar favorito">
+
+
+              <button
+                      class="btn btn-outline-primary"
+                      type="button">
+                  Agregar favorito
+              </button>
+          </div>
+      </div>
+  </div>
+
+
+  <!-- Lista de Juegos Favoritos -->
+  <div class="mb-3 row">
+      <label class="col-sm-3 col-form-label">Favoritos</label>
+      <div class="col-sm-9" formArrayName="juegosFavoritos">
+
+          <div class="mb-1" *ngFor="let favoritos of juegosFavoritos.controls; let i = index">
+
+              <div class="input-group">
+                  <input class="form-control" [formControlName]="i">
+
+                  <button class="btn btn-outline-danger"
+                          type="button"
+                          (click)="onEliminar(i)">
+                    Eliminar
+                </button>
+              </div>
+
+              <span *ngIf="esValidoCampoEnArreglo(juegosFavoritos, i)" class="form-text text-danger">
+                Este campo es requerido
+              </span>
+
+          </div>
+
+      </div>
+  </div>
+
+
+
+  <div class="row">
+      <div class="col-sm-12">
+          <button type="submit"
+                  class="btn btn-primary float-end"
+                  >
+                  <!-- [disabled]="myForm.invalid" -->
+              Guardar
+          </button>
+      </div>
+  </div>
+
+
+</form>
+
+
+
+<span>Valid</span>
+<pre>{{ practicaForm.valid | json }}</pre>
+<br>
+
+<span>Value</span>
+<pre>{{ practicaForm.value | json }}</pre>
+<br>
+
+<span>Agregar Juego</span>
+<pre>{{ practicaForm.value | json }}</pre>
+<pre>{{ practicaForm.value | json }}</pre>
